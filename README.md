@@ -35,7 +35,8 @@ npm install
 }
 ```
 6. Update the above template with the information Google Cloud gives you.
-
+7. In the CLI, run `firebase init` and setup for functions, firestore, and emulators (optional).
+8. Still in the CLI, deploy the functions to Firestore with `firebase deploy --only firestore`
 
 # Firebase text messenging service
 
