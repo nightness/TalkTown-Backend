@@ -10,7 +10,8 @@ firebase-debug.*.log*
 # Firebase cache
 .firebase/
 .firebaserc
-firestore.*
+firebase-export-metadata.json
+firestore.indexes.json
 firebase.json
 storage.rules
 

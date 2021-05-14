@@ -1,0 +1,110 @@
+rules_version = '2'
+service cloud.firestore {
+  	match /databases/{database}/documents {
+    	// Function to check if user is authorized
+    	function isAuthorized() {
+      		return request.auth.uid != null &&
+        		exists(/databases/$(database)/documents/profiles/$(request.auth.uid))
+    	}
+
+    	function isEmailVerified() {
+      		return request.auth.token.email_verified
+    	}
+
+		function emailMatches(regex) {
+			return request.auth.token.email.matches(regex)
+		}
+
+    	// Function to check if user has a Google account
+    	function userHasGoogleAccount() {
+      		return isAuthorized() &&
+        		isEmailVerified() &&
+        		emailMatches('@google.com*')
+    	}
+
+    	// Function to check if user is an admin
+    	function isAdmin() {
+      		return isAuthorized() && isEmailVerified() && request.auth.token.admin
+    	}
+
+    	// For development use
+    	match /{unrestrictedAccessRemoveInProduction=**} {
+      		allow read, write: if userHasGoogleAccount() && request.auth.token.allAccess
+    	}
+
+		// General Documents
+    	match /public/{publicDoc=**} {
+      		allow read: if isAuthorized()
+			allow write: if isAdmin()
+    	}
+
+  		// Group Match 
+  		match /groups/{groupId} {
+      		// Group Functions
+      		function isGroupMember() {
+        		return request.auth.uid in get(/databases/$(database)/documents/groups/{groupId}).data.members
+      		}
+
+      		// Group Messages Rules
+      		match /messages/loading {
+      			allow read: if isAuthorized()
+      		}
+
+		    // Group Rules
+			allow read: if isAuthorized()
+
+      		// Group Messages Rules
+      		match /messages/{messageId} {
+      			allow read: if isGroupMember() || isAuthorized()
+      		}
+    	}
+		
+    	// Notifications Match
+    	match /notifications/{memberId} {
+<<<<<<< HEAD
+      		allow read: if request.auth.uid === memberId
+=======
+      		allow read: if (request.auth.uid == memberId)
+>>>>>>> a7f02519a4b8aaf19b3ffb9fbf5bda2a757d2c26
+    	}    
+
+    	// Profiles Match
+    	match /profiles/{memberId} {
+      		allow read: if isAuthorized()
+    	}
+
+		// Messages Match
+    	match /messages/{senderMemberId} {			
+    		match /{receipientMemberId}/{messageId} {
+<<<<<<< HEAD
+				function canRead() { return (request.auth.uid === senderMemberId) || (request.auth.uid === receipientMemberId) }
+=======
+				function canRead() { return (request.auth.uid == senderMemberId) || (request.auth.uid == receipientMemberId) }
+>>>>>>> a7f02519a4b8aaf19b3ffb9fbf5bda2a757d2c26
+				
+   				allow read: if isAuthorized() && canRead()
+  			}	  			
+    	}   
+
+		// Walls Match
+    	match /walls/{memberId} {
+<<<<<<< HEAD
+      		//allow write: if isAuthorized() && (request.auth.uid === memberId)
+=======
+      		//allow write: if isAuthorized() && (request.auth.uid == memberId)
+>>>>>>> a7f02519a4b8aaf19b3ffb9fbf5bda2a757d2c26
+      		allow read: if isAuthorized()
+      
+			// Wall Messages Match
+      		match /messages/{messageId} {
+        		//allow create: if isAuthorized()
+<<<<<<< HEAD
+				//allow update: if (request.resource.data.authorUID === resource.data.authorUID)
+=======
+				//allow update: if (request.resource.data.authorUID == resource.data.authorUID)
+>>>>>>> a7f02519a4b8aaf19b3ffb9fbf5bda2a757d2c26
+        		allow read: if isAuthorized()
+      		}      
+    	}  
+  	}
+}
