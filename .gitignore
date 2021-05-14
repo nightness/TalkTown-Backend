@@ -11,6 +11,8 @@ firebase-debug.*.log*
 .firebase/
 .firebaserc
 firestore.*
+firebase.json
+storage.rules
 
 # Runtime data
 pids
