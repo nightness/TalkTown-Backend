@@ -35,7 +35,9 @@ npm install
 }
 ```
 6. Update the above template with the information Google Cloud gives you.
-
+7. In your CLI, go into the functions folder...
+8. Run `firebase init` and setup for functions, firestore, and emulators (optional). Don't overwrite anything in the functions folder.
+9. Deploy the functions and firestore rules to Firebase with `firebase deploy`
 
 # Firebase text messenging service
 
@@ -45,10 +47,10 @@ npm install
 -   While walls and groups are not, the data for private messages is duplicated (normal for a non-SQL database). This makes new message detection simpler.
 -   Isolates critical text communications by keeping everything cloud based. Firebase / Firestore have excellent offline support as well.
 -   Firestore (used in this way) is very affordable.
--   Can be integrated with existing authentication systems. While it does require logging in with Firebase Authentication; this process can be completely automated away with a member creation REST API. When a new member is added, the REST API will return a custom authentication token for that member.
 -   [In Development] Notification badges (In DrawerContent and in expo)
 -   [In Development] Each document with a messages    sub-collection should contain a 'recent' (messages) field. This will allows a single document read to initialize the state of the entire (message) view component on the front-end.
--   [Future] Handles isSeen and seenCounts
+-   [In Development] Handles isSeen and seenCounts
+-   [Future] Can be integrated with existing authentication systems. While it does require logging in with Firebase Authentication; this process can be completely automated away with a member creation REST API. When a new member is added, the REST API will return a custom authentication token for that member.
 -   [Future] Encrypted messages, this can always be done client side too.
 
 # Firestore Database Layout

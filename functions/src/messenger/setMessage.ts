@@ -46,7 +46,7 @@ export default functions.https.onCall(async (data, context) => {
     })()
 
     // Private Messages
-    if (!data.documentId) {
+    if (!data.documentId && senderProfile?.displayName) {
         const messagesCollection = admin.firestore().collection(data.collectionPath)
         const addData = {
             authorName: senderProfile.displayName,
