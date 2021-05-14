@@ -14,10 +14,8 @@ npm install
 
 ## Configure
 1. Setup a new (or use an existing) firebase project. I also recommend that you double check project settings right away.
-2. Click on the 'web button' above the `Add an app to get started` text.
-3. Give your app an arbitrary nickname and click the `Register App` button.
-4. Create a service account. If you need help with this, see the [Google Cloud Team's video](https://www.youtube.com/watch?v=tSnzoW4RlaQ) or the [documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
-5. Create a `src/secrets.json` file that looks like this...
+2. Create a service account. If you need help with this, see the [Google Cloud Team's video](https://www.youtube.com/watch?v=tSnzoW4RlaQ) or the [documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
+3. Create a `src/secrets.json` file that looks like this...
 ```
 {
   "SERVICE_ACCOUNT_TOKEN": {
@@ -34,10 +32,10 @@ npm install
   }
 }
 ```
-6. Update the above template with the information Google Cloud gives you.
-7. In your CLI, go into the functions folder...
-8. Run `firebase init` and setup for functions, firestore, and emulators (optional). Don't overwrite anything in the functions folder.
-9. Deploy the functions and firestore rules to Firebase with `firebase deploy`
+4. Update the above template with the information Google Cloud gives you.
+5. In your CLI, go into the functions folder...
+6. Run `firebase init` and setup for functions, firestore, and emulators (optional). Don't overwrite anything in the functions folder.
+7. Deploy the functions and firestore rules to Firebase with `firebase deploy`
 
 # Firebase text messenging service
 
