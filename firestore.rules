@@ -38,6 +38,21 @@ service cloud.firestore {
 			allow write: if isAdmin()
     	}
 
+		// Calls
+    	match /calls/{callId} {
+      		allow read: if isAuthorized()
+
+			// Offer Canidates
+			match /offerCandidates/{offerCandidatesId} {
+				allow read: if isAuthorized()
+			}
+
+			// Offer Canidates
+			match /answerCandidates/{answerCandidatesId} {
+				allow read: if isAuthorized()
+			}
+    	}
+
   		// Group Match 
   		match /groups/{groupId} {
       		// Group Functions
