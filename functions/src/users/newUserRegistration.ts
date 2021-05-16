@@ -9,10 +9,10 @@ export default functions.auth.user().onCreate(async user => {
         displayName: user.displayName,
     }
 
-    if (user.emailVerified && user.email === 'viipe.com@gmail.com')
-        admin.auth().setCustomUserClaims(user.uid, { admin: true })
-            .then(() => console.log('Auto added admin to personal account'))
-            .catch(err => console.log(err))
+    // if (user.emailVerified && user.email === 'kvkjvgklwjvlkjwlkvjelkwjvgwlkej')
+    //     admin.auth().setCustomUserClaims(user.uid, { admin: true })
+    //         .then(() => console.log('Auto added admin to personal account'))
+    //         .catch(err => console.log(err))
 
     await admin.firestore().collection('profiles').doc(user.uid).set(userProfile)
 })
