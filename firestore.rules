@@ -40,16 +40,16 @@ service cloud.firestore {
 
 		// Calls
     	match /calls/{callId} {
-      		allow read: if isAuthorized()
+			allow read, write: if isAdmin()
 
 			// Offer Canidates
 			match /offerCandidates/{offerCandidatesId} {
-				allow read: if isAuthorized()
+				allow read, write: if isAdmin()
 			}
 
 			// Offer Canidates
 			match /answerCandidates/{answerCandidatesId} {
-				allow read: if isAuthorized()
+				allow read, write: if isAdmin()
 			}
     	}
 

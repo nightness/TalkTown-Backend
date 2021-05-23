@@ -11,6 +11,7 @@ import getNotifications from './messenger/getNotifications'
 import leaveGroup from './messenger/leaveGroup'
 import joinGroup from './messenger/joinGroup'
 import markAsSeen from './messenger/markAsSeen'
+import createCall from './webrtc/createCall'
 
 const secrets = require('../secrets.json')
 
@@ -29,7 +30,8 @@ export {
     getNotifications,
     leaveGroup,
     joinGroup,
-    markAsSeen
+    markAsSeen,
+    createCall
 }
 
 // // OnCall functions for messages
