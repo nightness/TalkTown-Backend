@@ -2,23 +2,24 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 
 export default functions.https.onCall(async (data, context) => {
-    if (data === undefined)
-        return ({ result: 'Invalid arguments passed' })
-
     if (!context.auth)
-        return ({ result: 'Not Authenticated' })
+        return ({ error: 'Not Authenticated' })
         
     if (!context.auth.token.admin)
-        return ({ result: 'Permission Denied' })
+        return ({ error: 'Permission Denied' })
 
-    // const targetUser = await admin.auth().getUser(data.userId)
-    // if (!targetUser)
-    //     return ({ result: 'User not found' })
+    if (data === undefined || typeof data.target !== 'string')
+        return ({ error: 'Invalid arguments passed' })
 
     const callDoc = admin.firestore().collection('calls').doc()
 
     try {
-        return ({ result: await callDoc.set({ data }) })
+        const result = await callDoc.set({
+            creator: context.auth.uid,
+            target: data.target,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        })
+        return ({ success: result, id: callDoc.id })
     } catch (error) {
         return ({ error })
     }

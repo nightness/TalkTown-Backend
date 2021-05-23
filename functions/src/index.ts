@@ -12,6 +12,7 @@ import leaveGroup from './messenger/leaveGroup'
 import joinGroup from './messenger/joinGroup'
 import markAsSeen from './messenger/markAsSeen'
 import createCall from './webrtc/createCall'
+import setCallOffer from './webrtc/setCallOffer'
 
 const secrets = require('../secrets.json')
 
@@ -31,7 +32,8 @@ export {
     leaveGroup,
     joinGroup,
     markAsSeen,
-    createCall
+    createCall,
+    setCallOffer
 }
 
 // // OnCall functions for messages

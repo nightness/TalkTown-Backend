@@ -40,7 +40,11 @@ service cloud.firestore {
 
 		// Calls
     	match /calls/{callId} {
-			allow read, write: if isAdmin()
+	      	function callParticipant(resource) {
+				return resource.data.creator == request.auth.uid || resource.data.target == request.auth.uid
+			}
+
+			allow read: if isAuthorized() && callParticipant(resource)
 
 			// Offer Canidates
 			match /offerCandidates/{offerCandidatesId} {
