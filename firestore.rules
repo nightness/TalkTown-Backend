@@ -43,17 +43,18 @@ service cloud.firestore {
 	      	function callParticipant(resource) {
 				return resource.data.creator == request.auth.uid || resource.data.target == request.auth.uid
 			}
-
 			allow read: if isAuthorized() && callParticipant(resource)
 
 			// Offer Canidates
 			match /offerCandidates/{offerCandidatesId} {
-				allow read, write: if isAdmin()
+				allow create: if isAuthorized() && get(/databases/$(database)/documents/calls/$(callId)).data.creator == request.auth.uid
+				allow read: if isAuthorized() && get(/databases/$(database)/documents/calls/$(callId)).data.target == request.auth.uid
 			}
 
-			// Offer Canidates
+			// Answer Canidates
 			match /answerCandidates/{answerCandidatesId} {
-				allow read, write: if isAdmin()
+				allow create: if isAuthorized() && get(/databases/$(database)/documents/calls/$(callId)).data.target == request.auth.uid
+				allow read: if isAuthorized() && get(/databases/$(database)/documents/calls/$(callId)).data.creator == request.auth.uid
 			}
     	}
 
