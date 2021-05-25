@@ -1,22 +1,22 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 
-export default functions.https.onCall(async (data, context) => {
+export default functions.https.onCall(async ({ id, offer }, context) => {
     if (!context.auth) return { error: 'Not Authenticated' }
 
     if (!context.auth.token.admin) return { error: 'Permission Denied' }
 
-    if (data === undefined || typeof data.id !== 'string' || data.offer === undefined)
+    if (typeof id !== 'string' || offer === undefined)
         return { error: 'Invalid arguments passed' }
 
-    const callDoc = admin.firestore().collection('calls').doc(data.id)
+    const callDoc = admin.firestore().collection('calls').doc(id)
     const existing = (await callDoc.get()).data()
 
     if (!existing || !existing.creator || existing.creator !== context.auth.uid)
-        return { error: `No such call was found: ${data.id}` }
+        return { error: `No such call was found: ${id}` }
 
     try {
-        const result = await callDoc.update({ offer: data.offer })
+        const result = await callDoc.update({ offer })
         return { success: result }
     } catch (error) {
         return { error }
