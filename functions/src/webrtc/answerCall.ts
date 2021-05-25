@@ -6,17 +6,17 @@ export default functions.https.onCall(async (data, context) => {
 
     if (!context.auth.token.admin) return { error: 'Permission Denied' }
 
-    if (data === undefined || typeof data.id !== 'string' || data.offer === undefined)
-        return { error: 'Invalid arguments passed' }
+    if (data === undefined || typeof data.id !== 'string' || data.answer === undefined)
+       return { error: 'Invalid arguments passed' }
 
     const callDoc = admin.firestore().collection('calls').doc(data.id)
     const existing = (await callDoc.get()).data()
 
-    if (!existing || !existing.creator || existing.creator !== context.auth.uid)
+    if (!existing || !existing.target || existing.target !== context.auth.uid)
         return { error: `No such call was found: ${data.id}` }
 
     try {
-        const result = await callDoc.update({ offer: data.offer })
+        const result = await callDoc.update({ answer: data.answer })
         return { success: result }
     } catch (error) {
         return { error }

@@ -13,6 +13,7 @@ import joinGroup from './messenger/joinGroup'
 import markAsSeen from './messenger/markAsSeen'
 import createCall from './webrtc/createCall'
 import setCallOffer from './webrtc/setCallOffer'
+import answerCall from './webrtc/answerCall'
 
 const secrets = require('../secrets.json')
 
@@ -33,15 +34,9 @@ export {
     joinGroup,
     markAsSeen,
     createCall,
-    setCallOffer
+    setCallOffer,
+    answerCall
 }
-
-// // OnCall functions for messages
-// exports.setMessage = require('./src/messenger/setMessage').setMessage
-// exports.getNotifications = require('./src/messenger/getNotifications').getNotifications
-// exports.markAsSeen = require('./src/messenger/markAsSeen').markAsSeen
-// exports.joinGroup = require('./src/messenger/joinGroup').joinGroup
-// exports.leaveGroup = require('./src/messenger/leaveGroup').leaveGroup
 
 // // REST API User Management
 // // exports.users = require('./src/express/users-app').users
