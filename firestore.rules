@@ -80,8 +80,12 @@ service cloud.firestore {
     	}
 		
     	// Notifications Match
-    	match /notifications/{memberId} {
-      		allow read: if request.auth.uid == memberId
+    	match /notifications/{notificationId} {
+      		allow read, delete: if (request.auth.uid == notificationId)
+
+          match /webRTC/{webRtcId} {
+          	allow read, delete: if isAuthorized() && (request.auth.uid == notificationId)
+          }
     	}    
 
     	// Profiles Match
