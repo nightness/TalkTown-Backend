@@ -15,6 +15,7 @@ import markAsSeen from './messenger/markAsSeen'
 import createCall from './webrtc/createCall'
 import setCallOffer from './webrtc/setCallOffer'
 import answerCall from './webrtc/answerCall'
+import hangupCall from './webrtc/hangupCall'
 import usersApp from './express/users-app'
 import authApp from './express/auth-app'
 import { secrets } from './express/middleware'
@@ -41,6 +42,7 @@ export {
     createCall,
     setCallOffer,
     answerCall,
+    hangupCall,
     users,
     auth,
 }
