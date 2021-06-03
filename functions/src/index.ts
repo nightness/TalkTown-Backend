@@ -1,5 +1,6 @@
 // The Firebase Admin SDK to access Cloud Firestore.
 import * as admin from 'firebase-admin'
+import * as functions from 'firebase-functions'
 import getUserProfile from './users/getUserProfile'
 import getClaims from './users/getClaims'
 import modifyClaim from './users/modifyClaim'
@@ -14,18 +15,22 @@ import markAsSeen from './messenger/markAsSeen'
 import createCall from './webrtc/createCall'
 import setCallOffer from './webrtc/setCallOffer'
 import answerCall from './webrtc/answerCall'
-
-const secrets = require('../secrets.json')
+import usersApp from './express/users-app'
+import authApp from './express/auth-app'
+import { secrets } from './express/authenticateToken'
 
 admin.initializeApp({
-    credential: admin.credential.cert(secrets.SERVICE_ACCOUNT_TOKEN)
+    credential: admin.credential.cert(secrets.SERVICE_ACCOUNT_TOKEN),
 })
+
+const users = functions.https.onRequest(usersApp())
+const auth = functions.https.onRequest(authApp())
 
 export {
     getUserProfile,
-    getClaims, 
-    modifyClaim, 
-    newUserRegistration, 
+    getClaims,
+    modifyClaim,
+    newUserRegistration,
     setProfileAttribute,
     userDeleted,
     setMessage,
@@ -35,11 +40,7 @@ export {
     markAsSeen,
     createCall,
     setCallOffer,
-    answerCall
+    answerCall,
+    users,
+    auth,
 }
-
-// // REST API User Management
-// // exports.users = require('./src/express/users-app').users
-
-// // REST API Authentication
-// // exports.auth = require('./src/express/auth-app').auth
