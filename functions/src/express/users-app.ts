@@ -71,7 +71,10 @@ export const usersApp = () => {
             if (!postData) return res.status(400).send()
 
             // Forbidden to add the admin claim via this api
-            if (postData?.claims?.admin) return res.status(403).send()
+            if (postData?.claims?.admin)
+                return res
+                    .status(403)
+                    .send('Adding the admin token via this API is prohibited')
 
             // Create the user's information doc
             let doc = await collection.add(postData)
@@ -123,7 +126,10 @@ export const usersApp = () => {
             }
 
             // Forbidden to add the admin claim via this api
-            if (putData?.claims?.admin) return res.status(403).send()
+            if (putData?.claims?.admin)
+                return res
+                    .status(403)
+                    .send('Adding the admin token via this API is prohibited')
 
             // I think I need to remove the old user's auth account to accept the new claims
             // When they log back in they will have the same UID and all, just different claims.
