@@ -17,7 +17,7 @@ import setCallOffer from './webrtc/setCallOffer'
 import answerCall from './webrtc/answerCall'
 import usersApp from './express/users-app'
 import authApp from './express/auth-app'
-import { secrets } from './express/authenticateToken'
+import { secrets } from './express/middleware'
 
 admin.initializeApp({
     credential: admin.credential.cert(secrets.SERVICE_ACCOUNT_TOKEN),

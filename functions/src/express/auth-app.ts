@@ -6,7 +6,7 @@ import {
     setAuthToken,
     Middleware,
     secrets,
-} from './authenticateToken'
+} from './middleware'
 
 const auth = () => {
     // Start of express app

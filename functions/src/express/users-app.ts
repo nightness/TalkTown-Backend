@@ -1,7 +1,7 @@
 import * as express from 'express'
 import * as cors from 'cors'
 import * as admin from 'firebase-admin'
-import { setAuthToken, authenticateToken, Middleware } from './authenticateToken'
+import { setAuthToken, authenticateToken, Middleware } from './middleware'
 
 const users = () => {
     // Start of express app
