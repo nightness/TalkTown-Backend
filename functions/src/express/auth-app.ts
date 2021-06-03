@@ -8,7 +8,7 @@ import {
     secrets,
 } from './middleware'
 
-const auth = () => {
+export const authApp = () => {
     // Start of express app
     const app = express()
 
@@ -22,7 +22,7 @@ const auth = () => {
         '/',
         setAuthToken as Middleware,
         authenticateFirebaseToken as Middleware,
-        async (req, res, next) => {
+        async (req, res) => {
             const accessToken = jwt.sign(req.body.key, secrets.ACCESS_TOKEN_SECRET)
             res.status(200).json({ accessToken: accessToken })
         }
@@ -32,4 +32,4 @@ const auth = () => {
 }
 
 // Setup cloud function
-export default auth
+export default authApp

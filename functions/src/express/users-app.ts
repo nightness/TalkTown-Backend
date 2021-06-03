@@ -3,7 +3,7 @@ import * as cors from 'cors'
 import * as admin from 'firebase-admin'
 import { setAuthToken, authenticateToken, Middleware } from './middleware'
 
-const users = () => {
+export const usersApp = () => {
     // Start of express app
     const app = express()
 
@@ -70,6 +70,9 @@ const users = () => {
             const postData = req.body
             if (!postData) return res.status(400).send()
 
+            // Forbidden to add the admin claim via this api
+            if (postData?.claims?.admin) return res.status(403).send()
+
             // Create the user's information doc
             let doc = await collection.add(postData)
 
@@ -119,13 +122,18 @@ const users = () => {
                 return res.status(200).json(putData)
             }
 
+            // Forbidden to add the admin claim via this api
+            if (putData?.claims?.admin) return res.status(403).send()
+
             // I think I need to remove the old user's auth account to accept the new claims
             // When they log back in they will have the same UID and all, just different claims.
             // ...
             // Create a new custom auth token using the ID of the doc as the user's id
             // If a claims field is specified, those claims are included here
 
-            // Delete the old user in Firebase, then user logs in with this token to recreate that Firebase auth user with the new claims
+            // Delete the old user in Firebase, then user logs in with this token to recreate that Firebase
+            // auth user with the new claims
+
             return admin
                 .auth()
                 .createCustomToken(doc.id, putData.claims)
@@ -177,4 +185,4 @@ const users = () => {
 }
 
 // Setup cloud function
-export default users
+export default usersApp
