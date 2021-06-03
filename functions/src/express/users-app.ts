@@ -110,11 +110,11 @@ export const usersApp = () => {
                 return res.status(404).send()
             }
 
+            // Reset any attempt to alter this value!!!
+            putData.customToken = data.customToken
+
             // No claims were changed so no new custom auth token needs to be generated
             if (!putData.claims) {
-                // Reset any attempt to alter this value!!!
-                putData.customToken = data.customToken
-
                 // Update user information
                 await doc.update(putData)
 
