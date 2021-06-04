@@ -4,7 +4,8 @@ import * as admin from 'firebase-admin'
 export default functions.https.onCall(async ({ id, offer }, context) => {
     if (!context.auth) return { error: 'Not Authenticated' }
 
-    if (!context.auth.token.admin) return { error: 'Permission Denied' }
+    const result = await admin.auth().getUser(context.auth.uid)
+    if (!result.emailVerified) return { error: 'Permission Denied' }
 
     if (typeof id !== 'string' || offer === undefined)
         return { error: 'Invalid arguments passed' }

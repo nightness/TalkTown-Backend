@@ -4,14 +4,15 @@ import { Request, Response } from 'express'
 
 export const secrets = require('../../secrets.json')
 
-export type Middleware = (req: Request, res: Response, next: () => void) => Promise<any>
+export type Next = () => void
+export type Middleware = (req: Request, res: Response, next: Next) => Promise<any>
 
 interface AuthRequest extends Request {
     authToken?: string
     user?: string
 }
 
-const setAuthToken = async (req: AuthRequest, _: any, next: () => void) => {
+const setAuthToken = async (req: AuthRequest, _: Response, next: Next) => {
     const authHeader = req.header('Authorization')
     const authHeaderTokens = authHeader ? authHeader.split(' ') : ['', '']
     const token = authHeaderTokens[0] === 'Bearer' ? authHeaderTokens[1] : undefined
@@ -21,7 +22,7 @@ const setAuthToken = async (req: AuthRequest, _: any, next: () => void) => {
     return next()
 }
 
-const authenticateToken = async (req: AuthRequest, res: Response, next: () => void) => {
+const authenticateToken = async (req: AuthRequest, res: Response, next: Next) => {
     // Require authentication
     if (!req.authToken) return res.status(401).send()
 
@@ -36,11 +37,7 @@ const authenticateToken = async (req: AuthRequest, res: Response, next: () => vo
     )
 }
 
-const authenticateFirebaseToken = async (
-    req: AuthRequest,
-    res: Response,
-    next: () => Promise<any>
-) => {
+const authenticateFirebaseToken = async (req: AuthRequest, res: Response, next: Next) => {
     // Require authentication (Unauthorized)
     if (!req.authToken) return res.status(401).send()
 
