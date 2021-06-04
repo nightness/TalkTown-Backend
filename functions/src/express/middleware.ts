@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 
 export const secrets = require('../../secrets.json')
 
-export type Middleware = (req: any, res: any, next: any) => Promise<any>
+export type Middleware = (req: Request, res: Response, next: () => void) => Promise<any>
 
 interface AuthRequest extends Request {
     authToken?: string
