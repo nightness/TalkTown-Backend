@@ -44,16 +44,24 @@ export default functions.https.onCall(async (data, context) => {
             `No display name is specified in the user's info`
         )
 
+    const addData = userInfo?.photoURL
+        ? {
+              authorName: userInfo.displayName,
+              authorUid: currentUserUid,
+              message: message,
+              postedAt: admin.firestore.FieldValue.serverTimestamp(),
+              photoURL: userInfo.photoURL,
+          }
+        : {
+              authorName: userInfo.displayName,
+              authorUid: currentUserUid,
+              message: message,
+              postedAt: admin.firestore.FieldValue.serverTimestamp(),
+          }
+
     // Private Messages
     if (!data.documentId) {
         const messagesCollection = admin.firestore().collection(data.collectionPath)
-        const addData = {
-            authorName: userInfo.displayName,
-            authorUid: currentUserUid,
-            message: message,
-            postedAt: admin.firestore.FieldValue.serverTimestamp(),
-            photoURL: userInfo?.photoURL,
-        }
 
         const writeResult1 = await messagesCollection.add(addData)
 
@@ -71,13 +79,6 @@ export default functions.https.onCall(async (data, context) => {
         .collection(data.collectionPath)
         .doc(data.documentId)
     const messagesCollection = memberDoc.collection('messages')
-    const addData = {
-        authorName: userInfo.displayName,
-        authorUid: currentUserUid,
-        message: message,
-        postedAt: admin.firestore.FieldValue.serverTimestamp(),
-        photoURL: userInfo?.photoURL,
-    }
 
     const writeResult1 = await messagesCollection.add(addData)
 
