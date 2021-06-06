@@ -2,11 +2,10 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { UserProfile } from '../shared'
 
-export default functions.auth.user().onCreate(async user => {
-    // Triggers just return a value or promise
+export default functions.auth.user().onCreate(async (user) => {
     let userProfile: UserProfile = {
-        email: user.email,
         displayName: user.displayName,
+        photoURL: user.photoURL,
     }
 
     // if (user.emailVerified && user.email === 'kvkjvgklwjvlkjwlkvjelkwjvgwlkej')

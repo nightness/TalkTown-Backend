@@ -1,7 +1,6 @@
 // The Firebase Admin SDK to access Cloud Firestore.
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
-import getUserProfile from './users/getUserProfile'
 import getClaims from './users/getClaims'
 import modifyClaim from './users/modifyClaim'
 import newUserRegistration from './users/newUserRegistration'
@@ -18,6 +17,7 @@ import answerCall from './webrtc/answerCall'
 import hangupCall from './webrtc/hangupCall'
 import usersApp from './express/users-app'
 import authApp from './express/auth-app'
+import updateProfiles from './users/updateProfiles'
 import { secrets } from './express/middleware'
 
 admin.initializeApp({
@@ -28,7 +28,6 @@ const users = functions.https.onRequest(usersApp())
 const auth = functions.https.onRequest(authApp())
 
 export {
-    getUserProfile,
     getClaims,
     modifyClaim,
     newUserRegistration,
@@ -43,6 +42,7 @@ export {
     setCallOffer,
     answerCall,
     hangupCall,
+    updateProfiles,
     users,
     auth,
 }

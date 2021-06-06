@@ -19,7 +19,7 @@ export default functions.https.onCall(async (data, context) => {
     const doc: UserProfile = {}
     if (typeof data.displayName === 'string' && data.displayName !== '')
         doc.displayName = data.displayName
-    doc.theme = data?.theme
-    doc.photoURL = userInfo?.picture
+    if (data.theme) doc.theme = data.theme
+    if (userInfo.picture) doc.photoURL = userInfo.picture
     return await admin.firestore().collection('profiles').doc(userInfo.uid).set(doc)
 })
