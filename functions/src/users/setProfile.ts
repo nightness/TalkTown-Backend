@@ -14,7 +14,7 @@ export default functions.https.onCall(async (data, context) => {
     const userInfo = await admin.auth().getUser(currentUserUid)
 
     const doc: UserProfile = {}
-    // Keep original display
+    // Keep original displayName
     if (userInfo.displayName) doc.displayName = userInfo.displayName
     // Only allow displayName to be set if it's not already set.
     if (!doc.displayName && data.displayName) doc.displayName = data.displayName
