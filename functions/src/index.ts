@@ -4,7 +4,7 @@ import * as functions from 'firebase-functions'
 import getClaims from './users/getClaims'
 import modifyClaim from './users/modifyClaim'
 import newUserRegistration from './users/newUserRegistration'
-import setProfileAttribute from './users/setProfileAttribute'
+import setProfile from './users/setProfile'
 import userDeleted from './users/userDeleted'
 import setMessage from './messenger/setMessage'
 import getNotifications from './messenger/getNotifications'
@@ -31,7 +31,7 @@ export {
     getClaims,
     modifyClaim,
     newUserRegistration,
-    setProfileAttribute,
+    setProfile,
     userDeleted,
     setMessage,
     getNotifications,
