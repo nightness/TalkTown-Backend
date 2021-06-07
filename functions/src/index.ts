@@ -17,7 +17,6 @@ import answerCall from './webrtc/answerCall'
 import hangupCall from './webrtc/hangupCall'
 import usersApp from './express/users-app'
 import authApp from './express/auth-app'
-import updateProfiles from './users/updateProfiles'
 import { secrets } from './express/middleware'
 
 admin.initializeApp({
@@ -42,7 +41,6 @@ export {
     setCallOffer,
     answerCall,
     hangupCall,
-    updateProfiles,
     users,
     auth,
 }
