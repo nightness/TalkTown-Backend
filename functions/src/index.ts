@@ -17,10 +17,10 @@ import answerCall from './webrtc/answerCall'
 import hangupCall from './webrtc/hangupCall'
 import usersApp from './express/users-app'
 import authApp from './express/auth-app'
-import { secrets } from './express/middleware'
+import { secrets } from './secrets'
 
 admin.initializeApp({
-    credential: admin.credential.cert(secrets.SERVICE_ACCOUNT_TOKEN),
+    credential: admin.credential.cert(secrets),
 })
 
 const users = functions.https.onRequest(usersApp())

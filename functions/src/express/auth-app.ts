@@ -4,9 +4,9 @@ import * as jwt from 'jsonwebtoken'
 import {
     authenticateFirebaseToken,
     setAuthToken,
-    Middleware,
-    secrets,
+    Middleware,    
 } from './middleware'
+import { secrets } from '../secrets'
 
 export const authApp = () => {
     // Start of express app
@@ -23,7 +23,7 @@ export const authApp = () => {
         setAuthToken as Middleware,
         authenticateFirebaseToken as Middleware,
         async (req, res) => {
-            const accessToken = jwt.sign(req.body.key, secrets.ACCESS_TOKEN_SECRET)
+            const accessToken = jwt.sign(req.body.key, secrets.private_key)
             res.status(200).json({ accessToken: accessToken })
         }
     )

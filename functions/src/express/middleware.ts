@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken'
 import * as admin from 'firebase-admin'
 import { Request, Response } from 'express'
 
-export const secrets = require('../../secrets.json')
+import { secrets } from '../secrets'
 
 export type Next = () => void
 export type Middleware = (req: Request, res: Response, next: Next) => Promise<any>
@@ -28,7 +28,7 @@ const authenticateToken = async (req: AuthRequest, res: Response, next: Next) =>
 
     return jwt.verify(
         req.authToken,
-        secrets.ACCESS_TOKEN_SECRET,
+        secrets.private_key,
         (err: any, user: any) => {
             if (err) return res.status(403).send()
             req.user = user
