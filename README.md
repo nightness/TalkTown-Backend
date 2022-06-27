@@ -1,9 +1,9 @@
 <!-- Comment -->
-# Cloud Lightning Backend
+# TalkTown Backend
 
-This is the backend for [cloud-lightning-messenger](https://github.com/nightness/cloud-lightning-messenger); a OpenSource flexible chat system. It supports private, public, and group messages (with voice support coming soon). The cloud-lightning-messenger client is built using React Native, more specifically Expo 41; supporting Android, iOS, and Web builds. This backend uses Firebase, for the easy setup; but support for MongoDB is in planning.
+This is the backend for [TalkTown](https://github.com/nightness/TalkTown); a OpenSource flexible chat system. It supports private, public, and group messages (with voice support coming soon). The cloud-lightning-messenger client is built using React Native, more specifically Expo 41; supporting Android, iOS, and Web builds. This backend uses Firebase, for the easy setup; but support for MongoDB is in planning.
 
-You can visit the live site @ [Cloud Lightning Web App](https://cloud-lightning.web.app/)
+You can visit the live site @ [TalkTown](https://talktown.live/)
 
 ## Setup
 
